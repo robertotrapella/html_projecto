@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar sesion</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <header>
+            <div class="left-container">
+                <nav>
+                    <ul>
+                        <li class="lista-horizontal">
+                            <a class="hover-link" href="index.html">Inicio</a>
+                        </li>
+                        <li  class="lista-horizontal">|</li>
+                        <li class="lista-horizontal">
+                            <a class="hover-link" href="">Sobre nosotros</a>
+                        </li>
+                        <li class="lista-horizontal">
+                            <a class="hover-link" href="">Contactanos</a>
+                        </li>
+                        <li  class="lista-horizontal">|</li>
+                        <li class="lista-horizontal">
+                            <a class="hover-link" href="">Servicios</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="right-container">
+                <div class="logueado" id="div-logueado">
+                    <div class="perfil">
+                        <button id="btn-general" class="btn-usuario">
+                            <div id="btn-inicial" class="perfil-expander"></div>
+                            <span id="nombreUsuario" class="nombUsuario"></span>
+                        </button>
+                        <div id="menu-usuario" class="menu">
+                            <p id="datos-usuario"></p>
+                            <p id="datos-email"></p>
+                            <div class="configuracion">
+                                <button class="clickeable hover-text-conf" id="conf-sesion-btn">Configuracion</button>
+                            </div>
+                            <div class="cerrarSesion">
+                                <button class="clickeable hover-text" id="close-sesion-text">Cerrar sesion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="noLogueado" id="div-noLogueado">
+                    <ul>
+                        <li class="lista-horizontal">
+                            <a class="hover-link" href="login.html" title="Inicia sesion">Iniciar sesion</a>
+                        </li>
+                        <li  class="lista-horizontal">|</li>
+                            <li  class="lista-horizontal">
+                            <a class="hover-link" href="register.html" title="Registate">Registrarse</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="formularioCentrar">
+                <form class="formulario_login" id="formLogin">
+                    <label for="usuario">Usuario</label>
+                    <input id="usuario" type="text" placeholder="Ingrese su usuario" required>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" placeholder="Ingrese su contrasena" required>
+                    <small id="mensajeGeneral" class="mensaje"></small>
+                    <button class="formulario" type="submit">Enviar</button>
+                    <button class="formulario" type="reset">Borrar</button>
+                    <a href="register.html" class="btn">No tienes una cuenta? Registrate</a>
+                </form>
+            </div>
+        </main>
+        <script src="js/login.js"></script>
+        <script src="js/navbar.js"></script>
+    </body>
+</html>
