@@ -15,6 +15,8 @@ const menuUsuario = document.getElementById("menu-usuario");
 const confBtn = document.getElementById("conf-sesion-btn");
 const hamBtn = document.getElementById("hamburguesa-menu");
 const listDesplegable = document.getElementById("lista-despegable");
+const inicioSesion = document.getElementById("inicio-ses");
+const registro = document.getElementById("reg");
 
 
 if(logueado === "true"){
@@ -69,5 +71,21 @@ document.addEventListener("click", function(e){
         listDesplegable.classList.remove("activo");
     }
 });
+
+function ajustarDiseno () {
+    if(window.innerWidth < 768) {
+        inicioSesion.classList.add("estrecho");
+        inicioSesion.textContent = "🔑";
+        registro.classList.add("estrecho");
+        registro.textContent = "👤";
+    }else{
+        inicioSesion.classList.remove("estrecho");
+        inicioSesion.textContent = "Iniciar sesion";
+        registro.classList.remove("estrecho");
+        registro.textContent = "Registrarse";  
+    }
+}
+
+window.addEventListener('resize', ajustarDiseno);
 
 

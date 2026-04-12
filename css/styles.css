@@ -218,6 +218,11 @@ ul {
     cursor: pointer;
 }
 
+.btn-usuario:hover {
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgb(54, 103, 238);
+}
+
 .nombUsuario {
     display: flex;
     background-color: white;
@@ -240,7 +245,7 @@ ul {
 
 .menu {
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 0;
     background: white;
     border: 1px solid #ccc;
@@ -380,4 +385,20 @@ ul {
         box-shadow: 0 0 10px rgb(54, 103, 238);
         transition: 0.3s;
     }
+}
+
+@media (max-width: 768px) {
+    .rezise {
+       display: none;
+    }
+
+    .rezise.estrecho {
+        display: inline ;
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width : 450px) {
+
+    
 }
