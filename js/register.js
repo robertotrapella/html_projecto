@@ -3,14 +3,13 @@ const errorPassword = document.getElementById("errorPassword");
 const errorConfirm = document.getElementById("errorConfirm");
 const mensaje = document.getElementById("mensajeGeneral");
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const usuario = document.getElementById("usuario").value;
     const correo = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("password_confirmation").value
-
 
     mensaje.textContent = "";
     mensaje.classList.remove("error", "exito");
@@ -20,7 +19,7 @@ form.addEventListener("submit", function(event) {
 
     errorConfirm.textContent = "";
     errorConfirm.classList.remove("activo");
-    
+
     if (password.length < 6) {
         errorPassword.textContent = "La contraseña debe tener al menos 6 caracteres";
         errorPassword.classList.add("activo");
@@ -33,44 +32,44 @@ form.addEventListener("submit", function(event) {
         return;
     }
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const url = "http://localhost:8080/api/usuarios/registro";
+    const data = { username: usuario, email: correo, password: password }
 
-    const existe = usuarios.some(
-        user => user.usuario.toLowerCase() === usuario.toLowerCase()
-    );
-
-    if(existe){
-        mensaje.textContent = "El nombre de usuario ya existe";
-        mensaje.classList.add("error");
-        return;
-    }
-
-    const user = {
-        usuario: usuario,
-        email: correo,
-        password: password
-    };
-
-    usuarios.push(user);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    mensaje.textContent = "Registro exitoso";
-    mensaje.classList.add("exito");
-
-    localStorage.setItem("sesionActiva", "true");
-    const cuneta = {
-        usuario : usuario,
-        email: correo
-    }
-    localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
-
-    window.location.href = "index.html"
-
-
-
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.text())
+        .then(result => {
+            console.log(result);
+            // Verificamos si Java nos mandó una queja
+            if (result.includes("Error")) {
+                mensaje.textContent = result;  // Mostramos el error exacto (ej. "Error: Correo ya registrado")
+                mensaje.classList.remove("exito");
+                mensaje.classList.add("error");
+            }
+            else {
+                mensaje.textContent = "Registro exitoso";
+                mensaje.classList.remove("error");
+                mensaje.classList.add("exito");
+                localStorage.setItem("sesionActiva", "true");
+                const cuneta = {
+                    usuario: usuario,
+                    email: correo
+                };
+                localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1500);
+            }
+        })
+        .catch(error => console.log(error));
 });
 
-form.addEventListener("reset", function(){
+form.addEventListener("reset", function () {
     const mensaje = document.getElementById("mensajeGeneral");
 
     mensaje.textContent = "Formulario limpiado";

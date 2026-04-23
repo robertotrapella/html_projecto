@@ -1,39 +1,46 @@
 const form = document.getElementById("formLogin");
 const mensaje = document.getElementById("mensajeGeneral");
 
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const usuario = document.getElementById("usuario").value;
     const password = document.getElementById("password").value;
 
-    const data = localStorage.getItem("usuarios");
-    if(!data){
-        mensaje.textContent = "No hay usuarios registrados";
-        mensaje.classList.add("error");
-        return;
-    }
+    const url = "http://localhost:8080/api/usuarios/login";
+    const data = { username: usuario, password: password };
 
-    const usuarios = JSON.parse(data) || [];
-    const user = usuarios.find(u => 
-        u.usuario === usuario && u.password === password
-    );
-    if(user){
-        const cuneta = {
-            usuario : user.usuario,
-            email: user.email
-        }
-        localStorage.setItem("sesionActiva", "true");
-        localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
-        window.location.href = "index.html";
-
-    }else{
-        mensaje.textContent = "El usuario o contrasena son incorrectos";
-        mensaje.classList.add("error");
-    }
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la red');
+            }
+            return response.json();
+        })
+        .then(response => {
+            if (response.mensaje.includes("Exito")) {
+                localStorage.setItem("sesionActiva", "true");
+                const cuneta = {
+                    usuario: usuario,
+                    email: response.email
+                };
+                localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
+                localStorage.setItem("authToken", response.token);
+                window.location.href = "index.html";
+            } else {
+                mensaje.classList.add("error");
+                mensaje.textContent = response.mensaje;
+            }
+        })
 });
 
-form.addEventListener("reset", function(e) {
-        mensaje.textContent = "Formulario borrado exitosamente";
-        mensaje.classList.add("error");
+form.addEventListener("reset", function (e) {
+    mensaje.textContent = "Formulario borrado exitosamente";
+    mensaje.classList.add("error");
 });

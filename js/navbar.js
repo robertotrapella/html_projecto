@@ -18,74 +18,71 @@ const listDesplegable = document.getElementById("lista-despegable");
 const inicioSesion = document.getElementById("inicio-ses");
 const registro = document.getElementById("reg");
 
+if (logueado === "true") {
+  div_logueado.classList.add("activo");
+  div_noLogueado.classList.add("desactivado");
 
-if(logueado === "true"){
-
-    div_logueado.classList.add("activo");
-    div_noLogueado.classList.add("desactivado");
-
-    if(nombre.length > 0){
-        const inicial = nombre.charAt(0).toUpperCase();
-        btnUsuario.textContent = inicial;
-    }else{
-        btnUsuario.textContent = "?";
-    }
-    nombreUsuario.textContent = nombre;
-
+  if (nombre.length > 0) {
+    const inicial = nombre.charAt(0).toUpperCase();
+    btnUsuario.textContent = inicial;
+  } else {
+    btnUsuario.textContent = "?";
+  }
+  nombreUsuario.textContent = nombre;
 }
 
-btnUsuarioExpandir.onclick = function() {
-    menuUsuario.classList.toggle("activo");
-    datUsuario.textContent = nombre;
-    datEmail.textContent = email;
-}
+btnUsuarioExpandir.onclick = function () {
+  menuUsuario.classList.toggle("activo");
+  datUsuario.textContent = nombre;
+  datEmail.textContent = email;
+};
 
-document.addEventListener("click", function(e){
-    if (!btnUsuarioExpandir.contains(e.target) && !menuUsuario.contains(e.target)) {
-        menuUsuario.classList.remove("activo");
-    }
+document.addEventListener("click", function (e) {
+  if (
+    !btnUsuarioExpandir.contains(e.target) &&
+    !menuUsuario.contains(e.target)
+  ) {
+    menuUsuario.classList.remove("activo");
+  }
 });
 
-confBtn.onclick = function() {
-    window.location.href = "configuracion_cuenta.html";
-}
+confBtn.onclick = function () {
+  window.location.href = "configuracion_cuenta.html";
+};
 
-closeSesButton.onclick = function() {
-    logueado.sesionActiva = "false";
-    localStorage.setItem("sesionActiva", "false");
-    div_logueado.classList.remove("activo");
-    div_noLogueado.classList.remove("desactivado");
-    const actual = {
-        usuario : "",
-        email : ""
-    };
-    localStorage.setItem("usuarioActivo", JSON.stringify(actual));
-}
+closeSesButton.onclick = function () {
+  localStorage.setItem("sesionActiva", "false");
+  div_logueado.classList.remove("activo");
+  div_noLogueado.classList.remove("desactivado");
+  const actual = {
+    usuario: "",
+    email: "",
+  };
+  localStorage.setItem("usuarioActivo", JSON.stringify(actual));
+};
 
-hamBtn.onclick = function() {
-    listDesplegable.classList.toggle("activo");
-}
+hamBtn.onclick = function () {
+  listDesplegable.classList.toggle("activo");
+};
 
-document.addEventListener("click", function(e){
-    if (!listDesplegable.contains(e.target) && !hamBtn.contains(e.target)) {
-        listDesplegable.classList.remove("activo");
-    }
+document.addEventListener("click", function (e) {
+  if (!listDesplegable.contains(e.target) && !hamBtn.contains(e.target)) {
+    listDesplegable.classList.remove("activo");
+  }
 });
 
-function ajustarDiseno () {
-    if(window.innerWidth < 768) {
-        inicioSesion.classList.add("estrecho");
-        inicioSesion.textContent = "🔑";
-        registro.classList.add("estrecho");
-        registro.textContent = "👤";
-    }else{
-        inicioSesion.classList.remove("estrecho");
-        inicioSesion.textContent = "Iniciar sesion";
-        registro.classList.remove("estrecho");
-        registro.textContent = "Registrarse";  
-    }
+function ajustarDiseno() {
+  if (window.innerWidth < 768) {
+    inicioSesion.classList.add("estrecho");
+    inicioSesion.textContent = "🔑";
+    registro.classList.add("estrecho");
+    registro.textContent = "👤";
+  } else {
+    inicioSesion.classList.remove("estrecho");
+    inicioSesion.textContent = "Iniciar sesion";
+    registro.classList.remove("estrecho");
+    registro.textContent = "Registrarse";
+  }
 }
 
-window.addEventListener('resize', ajustarDiseno);
-
-
+window.addEventListener("resize", ajustarDiseno);
