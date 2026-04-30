@@ -25,12 +25,6 @@ form.addEventListener("submit", function (e) {
         })
         .then(response => {
             if (response.mensaje.includes("Exito")) {
-                localStorage.setItem("sesionActiva", "true");
-                const cuneta = {
-                    usuario: usuario,
-                    email: response.email
-                };
-                localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
                 localStorage.setItem("authToken", response.token);
                 window.location.href = "index.html";
             } else {

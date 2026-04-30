@@ -1,11 +1,15 @@
-const logueado = localStorage.getItem("sesionActiva");
+const tokenOficial = localStorage.getItem("authToken");
 const div_logueado = document.getElementById("div-logueado");
 const div_noLogueado = document.getElementById("div-noLogueado");
 const closeSesButton = document.getElementById("close-sesion-text");
-const data = localStorage.getItem("usuarioActivo");
-const cuenta = JSON.parse(data);
-const nombre = cuenta.usuario;
-const email = cuenta.email;
+let nombre = "";
+let email = "";
+if (tokenOficial !== null) {
+  const payloadEncriptado = tokenOficial.split('.')[1];
+  const cajaFuerteAbierta = JSON.parse(atob(payloadEncriptado));
+  nombre = cajaFuerteAbierta.username;
+  email = cajaFuerteAbierta.email;
+}
 const btnUsuario = document.getElementById("btn-inicial");
 const nombreUsuario = document.getElementById("nombreUsuario");
 const btnUsuarioExpandir = document.getElementById("btn-general");
@@ -18,7 +22,8 @@ const listDesplegable = document.getElementById("lista-despegable");
 const inicioSesion = document.getElementById("inicio-ses");
 const registro = document.getElementById("reg");
 
-if (logueado === "true") {
+
+if (tokenOficial !== null) {
   div_logueado.classList.add("activo");
   div_noLogueado.classList.add("desactivado");
 
@@ -51,14 +56,12 @@ confBtn.onclick = function () {
 };
 
 closeSesButton.onclick = function () {
-  localStorage.setItem("sesionActiva", "false");
+  localStorage.removeItem("authToken");
+  localStorage.removeItem("sesionActiva");
+  localStorage.removeItem("usuarioActivo");
   div_logueado.classList.remove("activo");
   div_noLogueado.classList.remove("desactivado");
-  const actual = {
-    usuario: "",
-    email: "",
-  };
-  localStorage.setItem("usuarioActivo", JSON.stringify(actual));
+  window.location.href = "index.html";
 };
 
 hamBtn.onclick = function () {

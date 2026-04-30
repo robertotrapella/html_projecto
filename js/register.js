@@ -42,25 +42,19 @@ form.addEventListener("submit", function (event) {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
-            console.log(result);
             // Verificamos si Java nos mandó una queja
-            if (result.includes("Error")) {
+            if (result.mensaje.includes("Error")) {
                 mensaje.textContent = result;  // Mostramos el error exacto (ej. "Error: Correo ya registrado")
                 mensaje.classList.remove("exito");
                 mensaje.classList.add("error");
             }
             else {
+                localStorage.setItem("authToken", result.token);
                 mensaje.textContent = "Registro exitoso";
                 mensaje.classList.remove("error");
                 mensaje.classList.add("exito");
-                localStorage.setItem("sesionActiva", "true");
-                const cuneta = {
-                    usuario: usuario,
-                    email: correo
-                };
-                localStorage.setItem("usuarioActivo", JSON.stringify(cuneta));
                 setTimeout(() => {
                     window.location.href = "index.html";
                 }, 1500);
