@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="css/styles.css">
+
 <body>
     <header>
         <div class="left-container">
@@ -13,15 +15,15 @@
                     <li class="lista-horizontal">
                         <a class="hover-link" href="index.html">Inicio</a>
                     </li>
-                    <li  class="lista-horizontal">|</li>
+                    <li class="lista-horizontal">|</li>
                     <li class="lista-horizontal">
                         <a class="hover-link" href="">Sobre nosotros</a>
                     </li>
-                    <li  class="lista-horizontal">|</li>
+                    <li class="lista-horizontal">|</li>
                     <li class="lista-horizontal">
                         <a class="hover-link" href="">Contactanos</a>
                     </li>
-                    <li  class="lista-horizontal">|</li>
+                    <li class="lista-horizontal">|</li>
                     <li class="lista-horizontal">
                         <a class="hover-link" href="">Servicios</a>
                     </li>
@@ -67,10 +69,11 @@
             <div class="noLogueado" id="div-noLogueado">
                 <ul>
                     <li class="lista-horizontal">
-                        <a id="inicio-ses" class="hover-link rezise" href="login.html" title="Inicia sesion">Iniciar sesion</a>
+                        <a id="inicio-ses" class="hover-link rezise" href="login.html" title="Inicia sesion">Iniciar
+                            sesion</a>
                     </li>
-                    <li  class="lista-horizontal rezise">|</li>
-                        <li  class="lista-horizontal">
+                    <li class="lista-horizontal rezise">|</li>
+                    <li class="lista-horizontal">
                         <a id="reg" class="hover-link rezise" href="register.html" title="Registate">Registrarse</a>
                     </li>
                 </ul>
@@ -80,7 +83,21 @@
             </div>
         </div>
     </header>
-    <p>Hola</p>
+    <main class="principal">
+        <section class="hero_buscador">
+            <h1 class="titulo_main">Descubre tu proxima receta</h1>
+            <p class="subtitulo_main">Encuentra más de 500,000 platillos increíbles.</p>
+            <div class="caja_busqueda">
+                <input type="text" id="input_recipe" placeholder="Ej. Burger, Pasta, Chicken...">
+                <button id="btn_recetas">Explorar</button>
+            </div>
+        </section>
+        <section id="grid_recetas" class="contenedor_recetas">
+            <p id="title_receta"></p>
+        </section>
+    </main>
     <script src="js/navbar.js"></script>
+    <script src="js/recetas.js"></script>
 </body>
+
 </html>

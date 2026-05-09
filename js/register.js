@@ -46,7 +46,7 @@ form.addEventListener("submit", function (event) {
         .then(result => {
             // Verificamos si Java nos mandó una queja
             if (result.mensaje.includes("Error")) {
-                mensaje.textContent = result;  // Mostramos el error exacto (ej. "Error: Correo ya registrado")
+                mensaje.textContent = result.mensaje;  // Mostramos el error exacto (ej. "Error: Correo ya registrado")
                 mensaje.classList.remove("exito");
                 mensaje.classList.add("error");
             }
